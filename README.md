@@ -13,4 +13,3 @@ Instrucciones rápidas:
    npm run build
    npm start
 
-Agregar variables de entorno en Vercel para integraciones (mail, APIs).
