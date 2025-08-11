@@ -1,0 +1,11 @@
+# Ignorar dependencias y archivos generados
+node_modules/
+.next/
+out/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Ignorar variables de entorno
+.env
+.env.local

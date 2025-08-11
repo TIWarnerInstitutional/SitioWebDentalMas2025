@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+button {
+  transition: background-color 0.3s ease;
+}
+
+/* Ajustes responsivos para el menú */
+nav {
+  @apply text-black;
+}
+
+nav a:hover {
+  @apply text-red-600;
+}
+
+/* Ajustes para el mapa */
+.map-container {
+  @apply w-full h-64 md:h-96;
+}
+
+/* Ajustes para la tarjeta emergente */
+.modal {
+  @apply fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center;
+}
+.modal-content {
+  @apply bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl;
+}
+.modal-content .details {
+  @apply w-full md:w-2/3;
+}
+.modal-content .gallery {
+  @apply w-full md:w-1/3;
+}
