@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const mantenimientoActivo = true; // Pon true para activar mantenimiento, false para desactivar
+const mantenimientoActivo = false; // Pon true para activar mantenimiento, false para desactivar
 
 export function middleware(request) {
   if (!mantenimientoActivo) {
