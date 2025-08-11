@@ -221,7 +221,7 @@ export default function Home() {
                 <h2 className="text-3xl md:text-4xl font-bold mb-2 text-[#FE0000]">Contáctanos</h2>
                 <p className="text-base md:text-lg text-gray-600 mb-6">¿Necesita información, agendar una cita o resolver una duda? Nuestro equipo le atenderá con profesionalismo y prontitud.</p>
                 <div className="space-y-2 text-gray-700 text-base mb-6">
-                  <div className="flex items-center gap-2"><span className="font-semibold">Teléfono:</span> <a href="tel:000000" className="hover:underline text-[#FE0000]">961 331 9835</a></div>
+                  <div className="flex items-center gap-2"><span className="font-semibold">Teléfono:</span> <a href="tel:00000000" className="hover:underline text-[#FE0000]">961 331 9835</a></div>
                   <div className="flex items-center gap-2"><span className="font-semibold">Correo:</span> <a href="mailto:contacto@dentalmas.com" className="hover:underline text-[#FE0000]">contacto@dentalmas.com</a></div>
                 </div>
                 <div className="flex flex-row flex-wrap gap-4 w-full justify-start">
