@@ -5,6 +5,7 @@ import { FaMapMarkerAlt, FaMoneyBillWave, FaTooth, FaUserMd } from 'react-icons/
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ChatbotWidget from '../components/ChatbotWidget';
+import { trackDentalEvents } from '../utils/analytics';
 
 // Datos para secciones (limpia duplicación y facilita mantenimiento)
 const FEATURES = [
@@ -96,8 +97,20 @@ export default function Home() {
             <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-gray-900" style={{ letterSpacing: '-0.03em' }}>Odontología de Excelencia</h1>
             <p className="text-xl md:text-2xl text-gray-500 font-normal mb-10">Cuidamos tu salud bucal con ética, tecnología y un trato verdaderamente humano. Confía en un equipo profesional y moderno.</p>
             <div className="flex flex-col md:flex-row gap-4 w-full justify-center">
-              <Link href="/#contacto" className="font-medium px-8 py-3 rounded-full border border-[#FE0000] text-[#FE0000] bg-white hover:bg-[#FE0000] hover:text-white transition">Agendar Cita</Link>
-              <Link href="/#sobre-nosotros" className="font-medium px-8 py-3 rounded-full border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 transition">Conócenos</Link>
+              <Link 
+                href="/#contacto" 
+                className="font-medium px-8 py-3 rounded-full border border-[#FE0000] text-[#FE0000] bg-white hover:bg-[#FE0000] hover:text-white transition"
+                onClick={() => trackDentalEvents.appointmentInterest('general')}
+              >
+                Agendar Cita
+              </Link>
+              <Link 
+                href="/#sobre-nosotros" 
+                className="font-medium px-8 py-3 rounded-full border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 transition"
+                onClick={() => trackDentalEvents.serviceView('sobre-nosotros')}
+              >
+                Conócenos
+              </Link>
             </div>
           </div>
         </section>
@@ -222,11 +235,24 @@ export default function Home() {
                 <h2 className="text-3xl md:text-4xl font-bold mb-2 text-[#FE0000]">Contáctanos</h2>
                 <p className="text-base md:text-lg text-gray-600 mb-6">¿Necesita información, agendar una cita o resolver una duda? Nuestro equipo le atenderá con profesionalismo y prontitud.</p>
                 <div className="space-y-2 text-gray-700 text-base mb-6">
-                  <div className="flex items-center gap-2"><span className="font-semibold">Teléfono:</span> <a href="tel:00000000" className="hover:underline text-[#FE0000]">961 331 9835</a></div>
+                  <div className="flex items-center gap-2"><span className="font-semibold">Teléfono:</span>                   <a 
+                    href="tel:00000000" 
+                    className="hover:underline text-[#FE0000]"
+                    onClick={() => trackDentalEvents.phoneCall()}
+                  >
+                    961 331 9835
+                  </a></div>
                   <div className="flex items-center gap-2"><span className="font-semibold">Correo:</span> <a href="mailto:contacto@dentalmas.com" className="hover:underline text-[#FE0000]">contacto@dentalmas.com</a></div>
                 </div>
                 <div className="flex flex-row flex-wrap gap-4 w-full justify-start">
-                  <a href="https://wa.me/000000" target="_blank" rel="noopener" className="flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-green-500 text-green-700 font-bold bg-white hover:bg-green-500 hover:text-white transition text-base justify-center" title="WhatsApp">
+                  <a 
+                    href="https://wa.me/000000" 
+                    target="_blank" 
+                    rel="noopener" 
+                    className="flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-green-500 text-green-700 font-bold bg-white hover:bg-green-500 hover:text-white transition text-base justify-center" 
+                    title="WhatsApp"
+                    onClick={() => trackDentalEvents.whatsappClick()}
+                  >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A12 12 0 003.48 20.52l-1.32 4.68a1 1 0 001.26 1.26l4.68-1.32A12 12 0 0020.52 3.48zm-8.52 17a10 10 0 1110-10 10 10 0 01-10 10zm4.29-7.71l-1.42-1.42a1 1 0 00-1.42 0l-1.42 1.42a1 1 0 000 1.42l1.42 1.42a1 1 0 001.42 0l1.42-1.42a1 1 0 000-1.42z" /></svg>
                     WhatsApp
                   </a>

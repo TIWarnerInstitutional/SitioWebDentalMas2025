@@ -27,6 +27,7 @@ export default function Footer(){
       <li><a href="/#servicios" className="hover:text-red-300">Servicios</a></li>
       <li><a href="/#equipo" className="hover:text-red-300">Equipo</a></li>
       <li><a href="/#contacto" className="hover:text-red-300">Contacto</a></li>
+      <li><a href="/terminos-y-condiciones" className="hover:text-red-300">Términos y Condiciones</a></li>
           </ul>
         </div>
 
@@ -52,7 +53,16 @@ export default function Footer(){
 
       {/* Copyright */}
       <div className="mt-10 border-t border-red-500 pt-4 text-center text-sm">
-        © {new Date().getFullYear()} Dental Mas. Todos los derechos reservados.
+        <p>© {new Date().getFullYear()} Dental Mas. Todos los derechos reservados.</p>
+        <p className="mt-2">
+          <a href="/terminos-y-condiciones" className="hover:text-red-300 underline">
+            Términos y Condiciones
+          </a>
+          {' | '}
+          <a href="/terminos-y-condiciones" className="hover:text-red-300 underline">
+            Política de Privacidad
+          </a>
+        </p>
       </div>
     </footer>
   )
