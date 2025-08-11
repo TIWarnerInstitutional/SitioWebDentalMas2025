@@ -15,7 +15,7 @@ const Header = () => {
         </nav>
         <div className="flex items-center space-x-4">
           <a
-            href="https://api.whatsapp.com/send?phone=9613319835"
+            href="https://api.whatsapp.com/send?phone="
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center bg-green-500 text-white px-4 py-2 rounded-full shadow hover:bg-green-600 transition"
