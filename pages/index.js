@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { FaMapMarkerAlt, FaMoneyBillWave, FaTooth, FaUserMd } from 'react-icons/fa';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import ChatbotWidget from '../components/ChatbotWidget';
 
 // Datos para secciones (limpia duplicación y facilita mantenimiento)
 const FEATURES = [
@@ -246,6 +247,7 @@ export default function Home() {
         </section>
       </main>
       <Footer />
+      <ChatbotWidget />
     </>
   );
 }
