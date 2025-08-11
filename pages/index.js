@@ -225,7 +225,7 @@ export default function Home() {
                   <div className="flex items-center gap-2"><span className="font-semibold">Correo:</span> <a href="mailto:contacto@dentalmas.com" className="hover:underline text-[#FE0000]">contacto@dentalmas.com</a></div>
                 </div>
                 <div className="flex flex-row flex-wrap gap-4 w-full justify-start">
-                  <a href="https://wa.me/529613319835" target="_blank" rel="noopener" className="flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-green-500 text-green-700 font-bold bg-white hover:bg-green-500 hover:text-white transition text-base justify-center" title="WhatsApp">
+                  <a href="https://wa.me/000000" target="_blank" rel="noopener" className="flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-green-500 text-green-700 font-bold bg-white hover:bg-green-500 hover:text-white transition text-base justify-center" title="WhatsApp">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A12 12 0 003.48 20.52l-1.32 4.68a1 1 0 001.26 1.26l4.68-1.32A12 12 0 0020.52 3.48zm-8.52 17a10 10 0 1110-10 10 10 0 01-10 10zm4.29-7.71l-1.42-1.42a1 1 0 00-1.42 0l-1.42 1.42a1 1 0 000 1.42l1.42 1.42a1 1 0 001.42 0l1.42-1.42a1 1 0 000-1.42z" /></svg>
                     WhatsApp
                   </a>
