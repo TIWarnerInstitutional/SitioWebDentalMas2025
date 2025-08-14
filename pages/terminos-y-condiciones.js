@@ -28,7 +28,7 @@ export default function TerminosCondiciones() {
                 <strong>Razón Social:</strong> Dental Más S.A. de C.V.<br/>
                 <strong>Domicilio:</strong> [Dirección completa]<br/>
                 <strong>RFC:</strong> [RFC de la empresa]<br/>
-                <strong>Teléfono:</strong> 961 00000000<br/>
+                <strong>Teléfono:</strong> 56 21567557<br/>
                 <strong>Correo electrónico:</strong> contacto@dentalmas.com
               </p>
             </section>
@@ -181,9 +181,9 @@ export default function TerminosCondiciones() {
                 Para cualquier duda, aclaración o comentario sobre estos términos y condiciones, puede contactarnos:
               </p>
               <div className="bg-gray-50 p-6 rounded-lg mt-4">
-                <p className="text-gray-700"><strong>Teléfono:</strong> 961 331 9835</p>
+                <p className="text-gray-700"><strong>Teléfono:</strong> 56 21567557</p>
                 <p className="text-gray-700"><strong>Email:</strong> contacto@dentalmas.com</p>
-                <p className="text-gray-700"><strong>WhatsApp:</strong> [Número de WhatsApp]</p>
+                <p className="text-gray-700"><strong>WhatsApp:</strong> 56 21567557</p>
                 <p className="text-gray-700"><strong>Horarios de atención:</strong> Lunes a Viernes 8:00 AM - 8:00 PM, Sábados 9:00 AM - 6:00 PM</p>
               </div>
             </section>

@@ -15,7 +15,7 @@ export default function Footer(){
           <h3 className="text-lg font-semibold">Contacto</h3>
           <p className="mt-2 text-sm">Horario: Lunes a Viernes, 9:00 AM - 6:00 PM</p>
           <p className="mt-1 text-sm">Dirección: Calle Salud #123, Ciudad Dental, País</p>
-          <p className="mt-1 text-sm">Teléfono: +52 961 123 4567</p>
+          <p className="mt-1 text-sm">Teléfono: 56 21567557</p>
           <p className="mt-1 text-sm">Correo: contacto@dentalmas.com</p>
         </div>
 

@@ -240,7 +240,7 @@ export default function Home() {
                     className="hover:underline text-[#FE0000]"
                     onClick={() => trackDentalEvents.phoneCall()}
                   >
-                    961 331 9835
+                    56 21567557
                   </a></div>
                   <div className="flex items-center gap-2"><span className="font-semibold">Correo:</span> <a href="mailto:contacto@dentalmas.com" className="hover:underline text-[#FE0000]">contacto@dentalmas.com</a></div>
                 </div>

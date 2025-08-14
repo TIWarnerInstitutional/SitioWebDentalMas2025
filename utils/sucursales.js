@@ -227,7 +227,7 @@ const sucursales = [
     calificacion: 4.0,
     reviews: 12,
     direccion: "16.753547,-93.115654",
-    telefono: "(961) 123-4567",
+  telefono: "56 21567557",
     horario: "Lunes a Sábado: 9:00 AM - 7:00 PM",
     maps: "https://www.google.com/maps/search/?api=1&query=16.753547,-93.115654",
     fotos: ["https://via.placeholder.com/300x200"],
