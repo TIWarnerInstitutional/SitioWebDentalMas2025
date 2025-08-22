@@ -36,26 +36,26 @@ const CookieAlert = () => {
     // Trackear que el usuario aceptó cookies
     trackDentalEvents.contactFormStart();
     
-    console.log('✅ Google Analytics ACTIVADO - todos los datos van directo a Google');
+  // console.log('✅ Google Analytics ACTIVADO - todos los datos van directo a Google');
   };
 
   const enableChatbotMemory = () => {
     // Permitir que el chatbot recuerde conversaciones
     localStorage.setItem('chatbot-memory-enabled', 'true');
-    console.log('✅ Chatbot: recordará conversaciones previas para mejor atención');
+  // console.log('✅ Chatbot: recordará conversaciones previas para mejor atención');
   };
 
   const enableFormMemory = () => {
     // Recordar datos de formularios (nombre, teléfono, etc.)
     localStorage.setItem('form-memory-enabled', 'true');
-    console.log('✅ Formularios: recordará datos para facilitar citas futuras');
+  // console.log('✅ Formularios: recordará datos para facilitar citas futuras');
   };
 
   const disableNonEssentialCookies = () => {
     // Limpiar cookies no esenciales
     localStorage.removeItem('chatbot-memory-enabled');
     localStorage.removeItem('form-memory-enabled');
-    console.log('ℹ️ Solo cookies esenciales: funcionalidad básica del sitio');
+  // console.log('ℹ️ Solo cookies esenciales: funcionalidad básica del sitio');
   };
 
   const acceptAllCookies = () => {

@@ -164,7 +164,7 @@ const Accordion = () => {
 };
 
 
-const ClinicasPage = () => {
+const SucursalesPage = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredClinicas, setFilteredClinicas] = useState([]);
@@ -274,4 +274,4 @@ const ClinicasPage = () => {
   );
 }
 
-export default ClinicasPage;
+export default SucursalesPage;
