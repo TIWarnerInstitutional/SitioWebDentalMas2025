@@ -6,8 +6,9 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ChatbotWidget from '../components/ChatbotWidget';
 import { trackDentalEvents } from '../utils/analytics';
+import PromoBanner from '../components/PromoBanner';
+import CarouselBanner from '../components/CarouselBanner.js';
 
-// Datos para secciones (limpia duplicación y facilita mantenimiento)
 const FEATURES = [
   { Icon: FaTooth, title: 'Tecnología Avanzada', desc: 'Diagnóstico y tratamiento con equipos de última generación.' },
   { Icon: FaUserMd, title: 'Especialistas', desc: 'Equipo médico certificado y en constante actualización.' },
@@ -33,7 +34,6 @@ const TESTIMONIALS = [
   { quote: '“La mejor clínica dental, tecnología de punta y personal profesional.”', name: 'María L.' }
 ];
 
-// Componente FAQAccordion para acordeón de preguntas frecuentes
 function FAQAccordion() {
   const [open, setOpen] = useState(null);
   const faqs = [
@@ -90,28 +90,13 @@ export default function Home() {
         <meta name="description" content="Dental Más: Más Ahorro, Más Calidad, Más Salud. Clínicas dentales modernas, atención profesional y resultados garantizados." />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
+      <PromoBanner />
       <Header />
       <main className="bg-white text-gray-800">
-        <section className="relative flex flex-col items-center justify-center min-h-[60vh] py-20 bg-white border-b">
-          <div className="z-10 text-center max-w-2xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-gray-900" style={{ letterSpacing: '-0.03em' }}>Odontología de Excelencia</h1>
-            <p className="text-xl md:text-2xl text-gray-500 font-normal mb-10">Cuidamos tu salud bucal con ética, tecnología y un trato verdaderamente humano. Confía en un equipo profesional y moderno.</p>
-            <div className="flex flex-col md:flex-row gap-4 w-full justify-center">
-              <Link 
-                href="/#contacto" 
-                className="font-medium px-8 py-3 rounded-full border border-[#FE0000] text-[#FE0000] bg-white hover:bg-[#FE0000] hover:text-white transition"
-                onClick={() => trackDentalEvents.appointmentInterest('general')}
-              >
-                Agendar Cita
-              </Link>
-              <Link 
-                href="/#sobre-nosotros" 
-                className="font-medium px-8 py-3 rounded-full border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 transition"
-                onClick={() => trackDentalEvents.serviceView('sobre-nosotros')}
-              >
-                Conócenos
-              </Link>
-            </div>
+        {/* Hero Carrusel full-screen y responsivo */}
+        <section className="relative w-full h-[85vh] min-h-[600px] flex flex-col items-stretch justify-start bg-white border-b overflow-hidden p-0 m-0">
+          <div className="w-full h-full flex flex-col items-stretch justify-start">
+            <CarouselBanner />
           </div>
         </section>
 

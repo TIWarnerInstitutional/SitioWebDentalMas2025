@@ -1,3 +1,39 @@
+@keyframes promo-fade {
+  0% { opacity: 0; transform: translateY(8px); }
+  60% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; }
+}
+.promo-fade {
+  animation: promo-fade 0.7s forwards;
+}
+.star-outline {
+  animation: star-minimal 1.6s infinite;
+}
+@keyframes star-minimal {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+@keyframes promo-wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.promo-anim {
+  animation: promo-wave 1.2s infinite;
+}
+@keyframes star-minimal {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+.star-anim {
+  animation: star-minimal 1.6s infinite;
+}
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-wave {
+  animation: wave 1s infinite;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

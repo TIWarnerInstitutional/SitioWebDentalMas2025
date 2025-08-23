@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaSun, FaMountain, FaTree, FaCity, FaUmbrellaBeach as FaBeach } from 'react-icons/fa';
 import Head from 'next/head';
+import PromoBanner from '../components/PromoBanner';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -196,6 +197,7 @@ const SucursalesPage = () => {
         <title>Clínicas - Dental Mas</title>
         <meta name="description" content="Encuentra nuestras clínicas cerca de ti." />
       </Head>
+      <PromoBanner />
       <Header />
       <main className="bg-gray-50 text-gray-800 py-10">
         <div className="container mx-auto px-6">
