@@ -17,6 +17,7 @@ const Header = () => {
             <Link href="/Tratamientos" className="text-red-500 font-bold hover:text-blue-600">Tratamientos</Link>
             <Link href="/Blog" className="text-red-500 font-bold hover:text-blue-600">Blog</Link>
             <Link href="/Franquicias" className="text-red-500 font-bold hover:text-blue-600">Franquicias</Link>
+            <Link href="/FAQ" className="text-red-500 font-bold hover:text-blue-600">FAQ</Link>
           </nav>
           <a
             href="https://api.whatsapp.com/send?phone=0000000000"
@@ -48,6 +49,7 @@ const Header = () => {
           <Link href="/Tratamientos" className="text-gray-700 hover:text-[#FE0000] font-medium" onClick={() => setMenuOpen(false)}>Tratamientos</Link>
           <Link href="/Blog" className="text-gray-700 hover:text-[#FE0000] font-medium" onClick={() => setMenuOpen(false)}>Blog</Link>
           <Link href="/Franquicias" className="text-gray-700 hover:text-[#FE0000] font-medium" onClick={() => setMenuOpen(false)}>Franquicias</Link>
+          <Link href="/FAQ" className="text-gray-700 hover:text-[#FE0000] font-medium" onClick={() => setMenuOpen(false)}>FAQ</Link>
           <a
             href="https://api.whatsapp.com/send?phone=0000000000"
             target="_blank"

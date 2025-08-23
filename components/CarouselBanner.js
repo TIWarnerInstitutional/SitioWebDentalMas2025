@@ -18,20 +18,14 @@ export default function CarouselBanner() {
   const prev = () => setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length);
 
   return (
-    <div className="relative w-full h-full min-h-[600px] overflow-hidden z-0">
-      <img
-        src={SLIDES[current]}
-        alt={`Banner ${current + 1}`}
-        className="object-cover w-full h-full transition-all duration-700"
-        style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-      />
+    <div className="relative w-full h-full min-h-[600px] overflow-hidden z-0 bg-white flex items-center justify-center">
       <button onClick={prev} className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/70 rounded-full p-2 shadow hover:bg-white z-10">❮</button>
       <button onClick={next} className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/70 rounded-full p-2 shadow hover:bg-white z-10">❯</button>
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
         {INDICATORS.map((char, i) => (
           <span
             key={i}
-            className={`font-bold text-base md:text-lg transition-all duration-500 ease-in-out ${i === current ? 'text-[#FE0000]' : 'text-white'}`}
+            className={`font-bold text-base md:text-lg transition-all duration-500 ease-in-out ${i === current ? 'text-[#FE0000]' : 'text-gray-400'}`}
             style={{ transitionProperty: 'color' }}
           >
             {char}
