@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 import Head from 'next/head';
 import Header from '../components/Header';
+import PromoBanner from '../components/PromoBanner';
 import Footer from '../components/Footer';
 import sucursales from '../utils/sucursales';
 import promocionesPorSucursal from '../utils/promociones';
@@ -151,6 +152,7 @@ export default function Citas() {
         <title>Citas - Dental Mas</title>
         <meta name="description" content="Agenda tu cita en Dental Mas." />
       </Head>
+  <PromoBanner />
       <Header />
       <main className="bg-gray-50 text-gray-800 py-10 min-h-screen">
         <div className="container mx-auto px-6">

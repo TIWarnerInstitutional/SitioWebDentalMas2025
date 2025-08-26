@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ChatbotWidget from '../components/ChatbotWidget';
 import { trackDentalEvents } from '../utils/analytics';
+import PromoBanner from '../components/PromoBanner';
 
 // Datos para secciones (limpia duplicación y facilita mantenimiento)
 const FEATURES = [
@@ -90,8 +91,9 @@ export default function Home() {
         <meta name="description" content="Dental Más: Más Ahorro, Más Calidad, Más Salud. Clínicas dentales modernas, atención profesional y resultados garantizados." />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <Header />
-      <main className="bg-white text-gray-800">
+  <PromoBanner />
+  <Header />
+  <main className="bg-white text-gray-800">
         <section className="relative flex flex-col items-center justify-center min-h-[60vh] py-20 bg-white border-b">
           <div className="z-10 text-center max-w-2xl mx-auto">
             <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-gray-900" style={{ letterSpacing: '-0.03em' }}>Odontología de Excelencia</h1>

@@ -11,12 +11,11 @@ const Header = () => {
         {/* Desktop nav + botones */}
         <div className="hidden md:flex items-center justify-center w-full space-x-6">
           <nav className="flex items-center justify-center w-full space-x-6">
-            <Link href="/clinicas" className="text-red-500 font-bold hover:text-blue-600">Clínicas</Link>
-            <Link href="/tratamientos" className="text-red-500 font-bold hover:text-blue-600">Tratamientos</Link>
-            <Link href="/pacientes" className="text-red-500 font-bold hover:text-blue-600">Pacientes</Link>
-            <Link href="/franquicias" className="text-red-500 font-bold hover:text-blue-600">Franquicias</Link>
+            <Link href="/" className="text-red-500 font-bold hover:text-blue-600">Inicio</Link>
+            <Link href="/QuienesSomos" className="text-red-500 font-bold hover:text-blue-600">¿Quiénes Somos?</Link>
+            <Link href="/sucursales" className="text-red-500 font-bold hover:text-blue-600">Sucursales</Link>
             <Link href="/blog" className="text-red-500 font-bold hover:text-blue-600">Blog</Link>
-            <Link href="/citas" className="text-red-500 font-bold hover:text-blue-600">Citas</Link>
+            <Link href="/franquicias" className="text-red-500 font-bold hover:text-blue-600">Franquicias</Link>
           </nav>
           <a
             href="https://api.whatsapp.com/send?phone=0000000000"
@@ -43,11 +42,10 @@ const Header = () => {
       {menuOpen && (
         <nav className="md:hidden bg-white border-t border-gray-200 shadow-lg px-6 py-4 flex flex-col gap-4 animate-slide-down">
           <Link href="/" className="text-gray-700 hover:text-[#FE0000] font-medium" onClick={() => setMenuOpen(false)}>Inicio</Link>
-          <Link href="/tratamientos" className="text-gray-700 hover:text-[#FE0000] font-medium" onClick={() => setMenuOpen(false)}>Tratamientos</Link>
-          <Link href="/clinicas" className="text-gray-700 hover:text-[#FE0000] font-medium" onClick={() => setMenuOpen(false)}>Clínicas</Link>
-          <Link href="/franquicias" className="text-gray-700 hover:text-[#FE0000] font-medium" onClick={() => setMenuOpen(false)}>Franquicias</Link>
+          <Link href="/QuienesSomos" className="text-gray-700 hover:text-[#FE0000] font-medium" onClick={() => setMenuOpen(false)}>¿Quiénes Somos?</Link>
+          <Link href="/sucursales" className="text-gray-700 hover:text-[#FE0000] font-medium" onClick={() => setMenuOpen(false)}>Sucursales</Link>
           <Link href="/blog" className="text-gray-700 hover:text-[#FE0000] font-medium" onClick={() => setMenuOpen(false)}>Blog</Link>
-          <Link href="/citas" className="text-gray-700 hover:text-[#FE0000] font-medium" onClick={() => setMenuOpen(false)}>Citas</Link>
+          <Link href="/franquicias" className="text-gray-700 hover:text-[#FE0000] font-medium" onClick={() => setMenuOpen(false)}>Franquicias</Link>
           <a
             href="https://api.whatsapp.com/send?phone=0000000000"
             target="_blank"
