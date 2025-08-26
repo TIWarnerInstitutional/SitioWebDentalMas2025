@@ -30,7 +30,7 @@ export default function PromoBanner() {
     return `${m}:${ss}`;
   };
   return (
-  <div className="w-full bg-gradient-to-r from-[#FE0000] to-[#FF6A00] text-white text-center py-2 md:py-3 font-bold font-sans text-base md:text-lg shadow-md flex flex-wrap items-center justify-center gap-1 md:gap-2">
+  <div className="w-full bg-gradient-to-r from-[#FE0000] to-[#FF6A00] text-white text-center py-1 md:py-2 font-bold font-sans text-sm md:text-base shadow-md flex flex-wrap items-center justify-center gap-1 md:gap-2">
       <span>✨</span>
     <span>¡Obten una promoción especial!</span>
       {mounted && (

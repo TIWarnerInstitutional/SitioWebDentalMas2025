@@ -7,15 +7,17 @@ const Header = () => {
   return (
     <header className="bg-white shadow-md w-full">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-  <Link href="/" className="text-2xl font-bold text-red-500 md:mr-8 md:ml-2 md:self-center md:whitespace-nowrap">Dental Mas</Link>
+  <Link href="/" className="md:mr-8 md:ml-2 md:self-center md:whitespace-nowrap">
+    <img src="/LogoDentalMas.png" alt="Logo Dental Mas" className="h-10 w-auto" />
+  </Link>
         {/* Desktop nav + botones */}
         <div className="hidden md:flex items-center justify-center w-full space-x-6">
           <nav className="flex items-center justify-center w-full space-x-6">
-                <Link href="/" className="text-red-500 font-bold hover:text-blue-600">Inicio</Link>
-                <Link href="/QuienesSomos" className="text-red-500 font-bold hover:text-blue-600">¿Quiénes Somos?</Link>
-                <Link href="/Sucursales" className="text-red-500 font-bold hover:text-blue-600">Sucursales</Link>
-                <Link href="/Blog" className="text-red-500 font-bold hover:text-blue-600">Blog</Link>
-                <Link href="/Franquicias" className="text-red-500 font-bold hover:text-blue-600">Franquicias</Link>
+                <Link href="/" className="text-gray-800 font-bold hover:text-blue-600">Inicio</Link>
+                <Link href="/QuienesSomos" className="text-gray-800 font-bold hover:text-blue-600">¿Quiénes Somos?</Link>
+                <Link href="/Sucursales" className="text-gray-800 font-bold hover:text-blue-600">Sucursales</Link>
+                <Link href="/Blog" className="text-gray-800 font-bold hover:text-blue-600">Blog</Link>
+                <Link href="/Franquicias" className="text-gray-800 font-bold hover:text-blue-600">Franquicias</Link>
           </nav>
           <a
             href="https://api.whatsapp.com/send?phone=0000000000"
