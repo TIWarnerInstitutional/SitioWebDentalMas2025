@@ -1,4 +1,5 @@
 import { useState } from 'react';
+<<<<<<< HEAD
 import Head from 'next/head';
 import Link from 'next/link';
 import { FaMapMarkerAlt, FaMoneyBillWave, FaTooth, FaUserMd } from 'react-icons/fa';
@@ -7,81 +8,84 @@ import Footer from '../components/Footer';
 import ChatbotWidget from '../components/ChatbotWidget';
 import { trackDentalEvents } from '../utils/analytics';
 import PromoBanner from '../components/PromoBanner';
+=======
+>>>>>>> 179a7c058c14d1c18bd64d1acb40ed2001f09960
 
-// Datos para secciones (limpia duplicación y facilita mantenimiento)
-const FEATURES = [
-  { Icon: FaTooth, title: 'Tecnología Avanzada', desc: 'Diagnóstico y tratamiento con equipos de última generación.' },
-  { Icon: FaUserMd, title: 'Especialistas', desc: 'Equipo médico certificado y en constante actualización.' },
-  { Icon: FaMoneyBillWave, title: 'Precios Claros', desc: 'Transparencia total y opciones accesibles para todos.' },
-  { Icon: FaMapMarkerAlt, title: 'Atención Personalizada', desc: 'Trato humano, discreto y profesional en cada visita.' }
-];
-
-const SERVICES = [
-  { title: 'Limpieza y Prevención', desc: 'Limpiezas profundas, revisiones y selladores para tu salud bucal.' },
-  { title: 'Estética Dental', desc: 'Blanqueamiento, carillas y tratamientos para una sonrisa natural.' },
-  { title: 'Ortodoncia y Más', desc: 'Brackets, alineadores y soluciones modernas para todas las edades.' }
-];
-
-const TEAM = [
-  { name: 'Dra. Ana López', role: 'Ortodoncia y Estética', photo: '/doctor1.jpg' },
-  { name: 'Dr. Carlos Ruiz', role: 'Implantología', photo: '/doctor2.jpg' },
-  { name: 'Dra. María León', role: 'Odontopediatría', photo: '/doctor3.jpg' }
-];
-
-const TESTIMONIALS = [
-  { quote: '“Me sentí en confianza desde el primer momento. Excelente atención.”', name: 'Ana G.' },
-  { quote: '“Resultados visibles y un trato muy humano. Recomiendo Dental Más.”', name: 'Carlos R.' },
-  { quote: '“La mejor clínica dental, tecnología de punta y personal profesional.”', name: 'María L.' }
-];
-
-// Componente FAQAccordion para acordeón de preguntas frecuentes
-function FAQAccordion() {
-  const [open, setOpen] = useState(null);
-  const faqs = [
+function CarouselQuienesSomos() {
+  const slides = [
     {
-      q: '¿Atienden urgencias dentales?',
-      a: 'Sí, contamos con atención para urgencias dentales. Puede contactarnos por WhatsApp o teléfono para recibir asistencia inmediata.'
+      title: '¿Quiénes Somos?',
+      img: '/FondoPrincipal.jpg',
+  text: '<span style="color:#FE0000;font-weight:bold">En Dental Más®</span>  somos una red de <span style="color:#FE0000;font-weight:bold">clínicas odontológicas</span> comprometida con transformar la <span style="color:#FE0000;font-weight:bold">experiencia</span> de la <span style="color:#FE0000;font-weight:bold">salud bucal</span> en México. Creamos espacios modernos y humanos para tu salud bucal'
     },
     {
-      q: '¿Aceptan seguros dentales?',
-      a: 'Aceptamos algunos seguros y convenios. Le recomendamos consultarnos previamente para verificar la cobertura de su póliza.'
+      title: 'Nuestra Misión',
+      img: '/FondoPrincipal.jpg',
+  text: 'Ofrecer <span style="color:#FE0000;font-weight:bold">tratamientos dentales</span> de alta calidad, con <span style="color:#FE0000;font-weight:bold">precios justos</span> y <span style="color:#FE0000;font-weight:bold">accesibles</span>, brindando un <span style="color:#FE0000;font-weight:bold">servicio humano</span>, cercano y <span style="color:#FE0000;font-weight:bold">profesional</span>.'
     },
     {
-      q: '¿Puedo agendar mi cita en línea?',
-      a: 'Sí, puede agendar su cita fácilmente desde nuestro sitio web o a través de WhatsApp. También puede llamarnos directamente.'
-    },
-    {
-      q: '¿Atienden a niños y adultos mayores?',
-      a: 'Por supuesto, nuestro equipo está capacitado para atender a pacientes de todas las edades, desde niños hasta adultos mayores.'
-    },
-    {
-      q: '¿Qué tipos de tratamientos de ortodoncia ofrecen?',
-      a: 'Ofrecemos ortodoncia tradicional con brackets metálicos, estéticos (cerámicos), autoligables y alineadores transparentes tipo Invisalign. El tratamiento ideal depende de las necesidades de cada paciente.'
+      title: 'Nuestra Visión',
+      img: '/FondoPrincipal.jpg',
+  text: 'Ser la red de clínicas dentales <span style="color:#FE0000;font-weight:bold">líder en México</span>, reconocida por la <span style="color:#FE0000;font-weight:bold">excelencia</span>, <span style="color:#FE0000;font-weight:bold">innovación</span> y el trato cálido a nuestros <span style="color:#FE0000;font-weight:bold">pacientes</span>.'
     }
   ];
+    slides[0].author = 'Nosotros Somos';
+    slides[1].author = 'Misión';
+    slides[2].author = 'Visión';
+  const [current, setCurrent] = useState(0);
+  const nextSlide = () => setCurrent((current + 1) % slides.length);
+  const prevSlide = () => setCurrent((current - 1 + slides.length) % slides.length);
   return (
-    <div className="bg-white rounded-2xl shadow-xl p-10 md:p-14 flex-1 flex flex-col justify-center border border-gray-100 min-w-[320px]">
-      <h3 className="text-2xl font-bold mb-6 text-[#FE0000]">Preguntas Frecuentes</h3>
-      <div className="space-y-4">
-        {faqs.map((faq, idx) => (
-          <div key={idx} className="border-b border-gray-200 pb-2">
-            <button
-              className="w-full text-left font-semibold text-base text-gray-900 focus:outline-none flex justify-between items-center py-2"
-              onClick={() => setOpen(open === idx ? null : idx)}
-              aria-expanded={open === idx}
-            >
-              {faq.q}
-              <span className={`ml-2 transition-transform ${open === idx ? 'rotate-180' : ''}`}>▼</span>
-            </button>
-            {open === idx && (
-              <p className="text-gray-600 text-sm mt-2 transition-all duration-200">{faq.a}</p>
-            )}
-          </div>
-        ))}
+    <div className="w-full flex flex-col md:flex-row items-stretch animate-fade-in" style={{ minHeight: '320px', maxHeight: '420px', height: '420px' }}>
+      {/* Imagen a la izquierda, mismo alto que el texto */}
+           <div className="md:w-[600px] w-full flex items-stretch">
+        <img
+          src={slides[current].img}
+          alt={slides[current].title}
+          className="rounded-2xl shadow-lg object-cover w-full h-full"
+          style={{ minHeight: '320px', maxHeight: '420px', height: '420px' }}
+        />
       </div>
+      {/* Espacio central */}
+      <div className="hidden md:block w-6" />
+      {/* Texto a la derecha, más ancho y mismo alto que la imagen */}
+        {/* Texto a la derecha, dentro de un card blanco */}
+          <div className="md:w-[1200px] w-full flex flex-col justify-center items-center py-0" style={{ minHeight: '320px', maxHeight: '420px', height: '420px' }}>
+          <div className="w-full h-full bg-white rounded-2xl shadow-lg flex flex-col justify-center px-6 md:px-10 py-6 md:py-8">
+            <p className="text-base md:text-lg font-light text-gray-900 mb-4 leading-tight" style={{ wordBreak: 'break-word', hyphens: 'auto' }} dangerouslySetInnerHTML={{ __html: slides[current].text }} />
+            <a href="#" className="text-[#FE0000] font-semibold mb-6 hover:underline">Leer toda la historia</a>
+            <hr className="w-full my-6 border-gray-200" />
+            <div className="mb-2">
+              <span className="font-bold text-lg text-gray-900">{slides[current].author}</span>
+            </div>
+            <div className="text-gray-500 text-base mb-4">Clinicas Dental Más✨</div>
+            <div className="flex gap-4 mt-8 justify-end w-full">
+              <button onClick={prevSlide} className="w-10 h-10 rounded-full bg-[#FFEAEA] hover:bg-[#FE0000]/10 text-[#FE0000] flex items-center justify-center shadow transition-all duration-300">
+                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+              </button>
+              <button onClick={nextSlide} className="w-10 h-10 rounded-full bg-[#FFEAEA] hover:bg-[#FE0000]/10 text-[#FE0000] flex items-center justify-center shadow transition-all duration-300">
+                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </div>
+        </div>
     </div>
   );
 }
+import { FAQAccordion } from './faq';
+import Head from 'next/head';
+import Link from 'next/link';
+import { FaMapMarkerAlt, FaMoneyBillWave, FaTooth, FaUserMd } from 'react-icons/fa';
+import Header from '../components/Header.js';
+import Footer from '../components/Footer.js';
+import ChatbotWidget from '../components/ChatbotWidget.js';
+import { trackDentalEvents } from '../utils/analytics.js';
+import PromoBanner from '../components/PromoBanner.js';
+import CarouselBanner from '../components/CarouselBanner.js';
+
+
+
+
 
 export default function Home() {
   return (
@@ -91,6 +95,7 @@ export default function Home() {
         <meta name="description" content="Dental Más: Más Ahorro, Más Calidad, Más Salud. Clínicas dentales modernas, atención profesional y resultados garantizados." />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
+<<<<<<< HEAD
   <PromoBanner />
   <Header />
   <main className="bg-white text-gray-800">
@@ -114,52 +119,55 @@ export default function Home() {
                 Conócenos
               </Link>
             </div>
+=======
+      <PromoBanner />
+      <Header />
+      <main className="bg-white text-gray-800">
+        {/* Hero Carrusel full-screen y responsivo */}
+        <section className="relative w-full h-[85vh] min-h-[600px] flex flex-col items-stretch justify-start bg-white border-b overflow-hidden p-0 m-0">
+          <div className="w-full h-full flex flex-col items-stretch justify-start">
+            <CarouselBanner />
+>>>>>>> 179a7c058c14d1c18bd64d1acb40ed2001f09960
           </div>
         </section>
 
-        <section className="py-16 bg-[#f7fafd] border-b">
-          <div className="container mx-auto max-w-5xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-[#222]">¿Por qué elegirnos?</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-              {FEATURES.map(({ Icon, title, desc }, i) => (
-                <div key={i} className="flex flex-col items-center bg-white rounded-2xl shadow-lg p-8 border border-gray-100 hover:shadow-2xl transition">
-                  <div className="mb-4 text-[#FE0000]"><Icon size={40} /></div>
-                  <h3 className="font-semibold text-lg mb-2 text-[#FE0000] text-center">{title}</h3>
-                  <p className="text-gray-600 text-sm text-center">{desc}</p>
-                </div>
-              ))}
-            </div>
+        {/* Secciones minimalistas y animadas */}
+        {/* Sección Quienes Somos */}
+  <section className="w-full py-20 flex justify-center items-center" style={{ background: '#FE0000' }}>
+          <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
+            <CarouselQuienesSomos />
           </div>
         </section>
 
-        <section id="sobre-nosotros" className="py-20 bg-gray-50 border-b">
-          <div className="container mx-auto max-w-4xl flex flex-col md:flex-row items-center gap-10">
-            <img src="/about-dentalmas.jpg" alt="Equipo Dental Más" className="w-full md:w-1/2 rounded-2xl shadow mb-8 md:mb-0" />
-            <div className="w-full md:w-1/2">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#222]">Sobre Dental Más</h2>
-              <p className="text-lg md:text-xl text-gray-700 mb-6">Red de clínicas dentales mexicanas con enfoque en innovación, ética y cercanía. Nuestra misión es democratizar la salud bucal con excelencia y calidez.</p>
-              <ul className="text-gray-500 space-y-2 mb-4 text-sm">
-                <li>• Más de 10,000 pacientes satisfechos</li>
-                <li>• Presencia en las principales ciudades</li>
-                <li>• Atención para toda la familia</li>
-              </ul>
-            </div>
+
+        {/* Sección Sucursales */}
+        <section className="w-full py-20 bg-white flex flex-col items-center animate-fade-in">
+          <div className="max-w-4xl w-full flex flex-col items-center text-center">
+            <h2 className="text-4xl font-bold mb-4 text-[#FE0000] animate-slide-up">Sucursales</h2>
+            <p className="text-lg text-gray-700 mb-6 animate-fade-in">Contamos con sucursales en CDMX, Estado de México y Querétaro. Encuentra la más cercana y agenda tu cita.</p>
+            <Link href="/Sucursales" className="mt-4 px-8 py-3 rounded-xl bg-[#FE0000] text-white font-semibold hover:bg-red-700 transition animate-pop">Ver sucursales</Link>
           </div>
         </section>
 
-        <section id="servicios" className="py-20 bg-white border-b">
-          <div className="container mx-auto max-w-5xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-[#222]">Nuestros Servicios</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              {SERVICES.map((s, i) => (
-                <div key={i} className="flex flex-col items-center text-center p-8 bg-gray-50 rounded-2xl border border-gray-100">
-                  <h3 className="font-semibold text-xl mb-2 text-[#FE0000]">{s.title}</h3>
-                  <p className="text-gray-600">{s.desc}</p>
-                </div>
-              ))}
-            </div>
+        {/* Sección Blog */}
+        <section className="w-full py-20 bg-gradient-to-br from-white via-gray-50 to-gray-100 flex flex-col items-center animate-fade-in">
+          <div className="max-w-4xl w-full flex flex-col items-center text-center">
+            <h2 className="text-4xl font-bold mb-4 text-[#FE0000] animate-slide-up">Blog</h2>
+            <p className="text-lg text-gray-700 mb-6 animate-fade-in">Lee consejos, novedades y artículos sobre salud dental, tratamientos y prevención.</p>
+            <Link href="/Blog" className="mt-4 px-8 py-3 rounded-xl bg-[#FE0000] text-white font-semibold hover:bg-red-700 transition animate-pop">Ir al blog</Link>
           </div>
         </section>
+
+        {/* Sección Casos de Éxito */}
+        <section className="w-full py-20 bg-white flex flex-col items-center animate-fade-in">
+          <div className="max-w-4xl w-full flex flex-col items-center text-center">
+            <h2 className="text-4xl font-bold mb-4 text-[#FE0000] animate-slide-up">Casos de Éxito</h2>
+            <p className="text-lg text-gray-700 mb-6 animate-fade-in">Conoce historias reales de pacientes que transformaron su sonrisa con nosotros.</p>
+            <Link href="/CasosDeExito" className="mt-4 px-8 py-3 rounded-xl bg-[#FE0000] text-white font-semibold hover:bg-red-700 transition animate-pop">Ver casos</Link>
+          </div>
+        </section>
+
+      
 
         <section id="pagos" className="py-20 bg-white border-b">
           <div className="container mx-auto max-w-4xl">
@@ -199,35 +207,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="equipo" className="py-20 bg-gray-50 border-b">
-          <div className="container mx-auto max-w-4xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-[#222]">Nuestro equipo</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              {TEAM.map((m, i) => (
-                <div key={i} className="flex flex-col items-center bg-white rounded-2xl border border-gray-100 p-8">
-                  <img src={m.photo} alt={m.name} className="w-20 h-20 rounded-full mb-4 object-cover border-2 border-[#FE0000]" />
-                  <h3 className="font-semibold text-lg mb-1 text-[#FE0000]">{m.name}</h3>
-                  <p className="text-gray-500 mb-2 text-sm">{m.role}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="testimonios" className="py-20 bg-white border-b">
-          <div className="container mx-auto max-w-4xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-[#222]">Testimonios</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {TESTIMONIALS.map((t, i) => (
-                <div key={i} className="bg-gray-50 rounded-xl border border-gray-100 p-6 flex flex-col items-center">
-                  <p className="text-gray-700 italic mb-4">{t.quote}</p>
-                  <div className="font-bold text-[#FE0000]">{t.name}</div>
-                  <div className="text-gray-400 text-sm">Paciente</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+       
 
         <section id="contacto" className="py-24 bg-gradient-to-br from-white via-gray-50 to-gray-100 w-full">
           <div className="w-full flex justify-center">

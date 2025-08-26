@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 
 import Head from 'next/head';
@@ -7,6 +6,7 @@ import PromoBanner from '../components/PromoBanner';
 import Footer from '../components/Footer';
 import sucursales from '../utils/sucursales';
 import promocionesPorSucursal from '../utils/promociones';
+import PromoBanner from '../components/PromoBanner';
 
 // Componente simple de calendario del mes actual
 function CalendarMonth() {
@@ -154,6 +154,7 @@ export default function Citas() {
       </Head>
   <PromoBanner />
       <Header />
+      <PromoBanner />
       <main className="bg-gray-50 text-gray-800 py-10 min-h-screen">
         <div className="container mx-auto px-6">
           <section className="text-center mb-10">

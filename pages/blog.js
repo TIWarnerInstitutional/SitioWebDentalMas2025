@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Header from '../components/Header';
 import PromoBanner from '../components/PromoBanner';
 import Footer from '../components/Footer';
+import PromoBanner from '../components/PromoBanner';
 
 const BlogPage = () => {
   return (

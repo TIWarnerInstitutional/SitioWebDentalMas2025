@@ -22,7 +22,9 @@ export const initializeAnalytics = () => {
     cookie_flags: 'SameSite=None;Secure'
   });
 
-  console.log('✅ Google Analytics inicializado con ID:', GA_ID);
+  if (process.env.NODE_ENV === 'development') {
+    console.log('✅ Google Analytics inicializado con ID:', GA_ID);
+  }
 };
 
 // Eventos específicos para tu clínica dental
