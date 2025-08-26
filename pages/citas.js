@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 import Head from 'next/head';
 import Header from '../components/Header';
-import PromoBanner from '../components/PromoBanner';
 import Footer from '../components/Footer';
 import sucursales from '../utils/sucursales';
 import promocionesPorSucursal from '../utils/promociones';
