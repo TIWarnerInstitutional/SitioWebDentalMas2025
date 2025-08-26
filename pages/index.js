@@ -1,7 +1,7 @@
 import ChatbotWidget from '../components/ChatbotWidget';
 import Footer from '../components/Footer';
 import Link from 'next/link';
-import CarouselQuienesSomos from '../components/CarouselQuienesSomos';
+
 import PromoBanner from '../components/PromoBanner';
 import CarouselBanner from '../components/CarouselBanner';
 import Header from '../components/Header';
@@ -32,7 +32,7 @@ export default function Home() {
               {/* Sección Quienes Somos */}
               <section className="w-full py-20 flex justify-center items-center" style={{ background: '#FE0000' }}>
                 <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
-                  <CarouselQuienesSomos />
+
                 </div>
               </section>
               {/* Sección Sucursales */}
