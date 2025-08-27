@@ -15,11 +15,13 @@ const iconsHero = [
 
 const slides = [
   {
-    image: "/Fondo1.png",
+     imageDesktop: "/FondoPrincipal.png",
+    imageMobile: "/FondoPrincipal-mobile.png",
     custom: true,
   },
   {
-    image: "/FondoPrincipal.jpg",
+    imageDesktop: "/FondoPrincipal.png",
+    imageMobile: "/FondoPrincipal-mobile.png",
     title: "e",
     description: "Expertos en salud bucal para toda la familia.",
     icons: [FaUserMd, FaHeartbeat],
@@ -28,7 +30,8 @@ const slides = [
     ]
   },
   {
-    image: "/hero-bg.jpg",
+    imageDesktop: "/hero-bg.jpg",
+    imageMobile: "/hero-bg-mobile.jpg",
     title: "n",
     description: "Equipos modernos para tu mejor sonrisa.",
     icons: [FaXRay, FaTeeth],
@@ -37,7 +40,8 @@ const slides = [
     ]
   },
   {
-    image: "/MasAhorro.jpg",
+    imageDesktop: "/MasAhorro.jpg",
+    imageMobile: "/MasAhorro-mobile.jpg",
     title: "t",
     description: "Ahorra en tus tratamientos dentales.",
     icons: [FaSmile],
@@ -46,7 +50,8 @@ const slides = [
     ]
   },
   {
-    image: "/MasCalidad.jpg",
+    imageDesktop: "/MasCalidad.jpg",
+    imageMobile: "/MasCalidad-mobile.jpg",
     title: "a",
     description: "Calidad garantizada en cada visita.",
     icons: [FaTooth],
@@ -55,7 +60,8 @@ const slides = [
     ]
   },
   {
-    image: "/MasSalud.jpg",
+    imageDesktop: "/MasSalud.jpg",
+    imageMobile: "/MasSalud-mobile.jpg",
     title: "l",
     description: "Tu salud bucal es nuestra prioridad.",
     icons: [FaHeartbeat],
@@ -64,7 +70,8 @@ const slides = [
     ]
   },
   {
-    image: "/FondoPrincipal.jpg",
+    imageDesktop: "/FondoPrincipal.jpg",
+    imageMobile: "/FondoPrincipal-mobile.jpg",
     title: "+",
     description: "Más beneficios para ti.",
     icons: [FaSmile, FaTooth],
@@ -82,9 +89,11 @@ export default function CarouselBanner() {
   const currentSlide = slides[current];
 
   return (
-  <div className="relative w-full h-[600px] md:h-[850px] min-h-[600px] md:min-h-[850px] overflow-hidden z-0 flex items-center justify-center">
+  <section className="relative w-screen min-h-[900px] md:min-h-[1100px] overflow-hidden z-0 flex items-center justify-center p-0 m-0" style={{background: 'transparent'}}>
       {/* Imagen de fondo */}
-  <img src={currentSlide.image} alt="" className="absolute inset-0 w-full h-full object-cover z-0" style={{height: '100%', minHeight: '500px'}} />
+  {/* Imagen de fondo responsive */}
+  <img src={currentSlide.imageDesktop} alt="" className="hidden md:block absolute inset-0 w-full h-full object-cover z-0" />
+  <img src={currentSlide.imageMobile} alt="" className="block md:hidden absolute inset-0 w-full h-full object-cover z-0" />
       {/* Contenido superpuesto */}
   <button onClick={prev} className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/70 rounded-full p-2 shadow hover:bg-white z-30">❮</button>
   <button onClick={next} className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/70 rounded-full p-2 shadow hover:bg-white z-30">❯</button>
@@ -137,17 +146,17 @@ export default function CarouselBanner() {
           </>
         )}
       </div>
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-50 pointer-events-none">
         {INDICATORS.map((char, i) => (
           <span
             key={i}
-            className={`font-bold text-base md:text-lg transition-all duration-500 ease-in-out ${i === current ? 'text-[#FE0000]' : 'text-gray-900'}`}
-            style={{ transitionProperty: 'color' }}
+            className={`font-semibold text-base md:text-lg transition-all duration-500 ease-in-out ${i === current ? 'text-[#FE0000]' : 'text-white md:text-gray-700'}`}
+            style={{ transitionProperty: 'color', letterSpacing: '0.05em' }}
           >
             {char}
           </span>
         ))}
       </div>
-    </div>
+  </section>
   );
 }
