@@ -23,14 +23,13 @@ export default function Home() {
                 </div>
               </section>
               {/* Sección Bienvenida */}
-              <section className="w-full py-20 bg-white flex flex-col items-center animate-fade-in">
-                <div className="max-w-4xl w-full flex flex-col items-center text-center">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">Bienvenido a DentalMas</h2>
-                  <p className="text-lg md:text-xl text-gray-700 mb-6">Tu salud bucal es nuestra prioridad. Descubre nuestros servicios y promociones.</p>
+             <section className="w-full py-20 flex justify-center items-center" style={{ background: '#FE0000' }}>
+                <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
+
                 </div>
               </section>
               {/* Sección Quienes Somos */}
-              <section className="w-full py-20 flex justify-center items-center" style={{ background: '#FE0000' }}>
+              <section className="w-full py-20 flex justify-center items-center" style={{ background: '#000000' }}>
                 <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
 
                 </div>
