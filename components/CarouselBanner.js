@@ -16,7 +16,7 @@ const iconsHero = [
 
 const slides = [
   {
-    imageDesktop: "/FondoPrincipal.png",
+    imageDesktop: "/15.png",
     imageMobile: "/FondoPrincipalMobile.png",
     custom: true,
   },
@@ -118,7 +118,7 @@ export default function CarouselBanner() {
               Dental<span className="text-[#FE0000]">+</span>
             </h1>
             <p className="text-xl text-gray-600 mb-6 max-w-xl px-4 text-center md:text-center md:px-8">
-              Tu mejor sonrisa comienza aquí: atención profesional, tecnología avanzada y resultados que te harán sonreír.
+              <span style={{ color: '#fff' }}>Tu mejor sonrisa comienza aquí: atención profesional, tecnología avanzada y resultados que te harán sonreír.</span>
             </p>
             {/* Botones */}
             <div className="flex gap-4">

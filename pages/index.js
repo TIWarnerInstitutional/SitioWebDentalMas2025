@@ -4,10 +4,36 @@ import Link from 'next/link';
 
 import PromoBanner from '../components/PromoBanner';
 import CarouselBanner from '../components/CarouselBanner';
+import QuienesSomos from '../components/QuienesSomos';
 import Header from '../components/Header';
 import Head from 'next/head';
+import React from 'react';
 import FAQ from '../components/FAQ';
 export default function Home() {
+  const features = [
+    {
+      id: 1,
+      color: '#D80B3A',
+      title: 'Quiénes Somos',
+      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam quidem ipsam ratione dicta quis cupiditate consequuntur laborum ducimus iusto velit.',
+      image: '/Fondo.jpg',
+    },
+    {
+      id: 2,
+      color: '#3B82F6',
+      title: 'Misión',
+      description: '',
+      image: '/FondoPrincipal.jpg',
+    },
+    {
+      id: 3,
+      color: '#2ECC71',
+      title: 'Visión',
+      description: '',
+      image: '/FondoPrincipal.png',
+    },
+  ];
+  const [activeFeature, setActiveFeature] = React.useState(0);
   return (
     <>
       <Head>
@@ -16,24 +42,16 @@ export default function Home() {
       <PromoBanner />
       <Header />
       <main className="bg-white text-gray-800">
-              {/* Hero Carrusel full-screen y responsivo */}
-              <section className="relative w-full h-[85vh] min-h-[600px] flex flex-col items-stretch justify-start bg-white border-b overflow-hidden p-0 m-0">
-                <div className="w-full h-full flex flex-col items-stretch justify-start">
-                  <CarouselBanner />
-                </div>
-              </section>
-              {/* Sección Bienvenida */}
-             <section className="w-full py-20 flex justify-center items-center" style={{ background: '#FE0000' }}>
-                <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
-
-                </div>
-              </section>
-              {/* Sección Quienes Somos */}
-              <section className="w-full py-20 flex justify-center items-center" style={{ background: '#000000' }}>
-                <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
-
-                </div>
-              </section>
+            {/* Hero Carrusel full-screen y responsivo */}
+            <section className="relative w-full h-[85vh] min-h-[600px] flex flex-col items-stretch justify-start bg-white overflow-hidden p-0 m-0">
+              <div className="w-full h-full flex flex-col items-stretch justify-start">
+                <CarouselBanner />
+              </div>
+            </section>
+            {/* Sección Quienes Somos nueva */}
+            <QuienesSomos />
+             
+          
               {/* Sección Sucursales */}
               <section className="w-full py-20 bg-white flex flex-col items-center animate-fade-in">
                 <div className="max-w-4xl w-full flex flex-col items-center text-center">
