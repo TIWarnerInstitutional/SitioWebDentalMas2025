@@ -1,17 +1,25 @@
-import React from "react";
+
+import React, { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useState } from "react";
+import sucursales from "../utils/sucursales";
 import L from "leaflet";
 
-function FlyToLocation({ position }) {
+function FlyToLocation({ position, zoom = 16 }) {
   const map = useMap();
-  map.flyTo(position, map.getZoom());
+  React.useEffect(() => {
+    if (position) {
+      map.flyTo(position, zoom, { duration: 1.5 });
+    }
+  }, [position, zoom, map]);
   return null;
 }
 
-export default function MapaSucursales({ sucursales, selected, setSelected }) {
+export default function MapaSucursales() {
+  const [selected, setSelected] = useState(null);
   const [carouselIdx, setCarouselIdx] = useState(0);
+  const [search, setSearch] = useState("");
+  const [locating, setLocating] = useState(false);
   const pinIcon = L.icon({
     iconUrl: "/PinMapa.png",
     iconSize: [28, 28],
@@ -19,132 +27,238 @@ export default function MapaSucursales({ sucursales, selected, setSelected }) {
     popupAnchor: [0, -28],
   });
 
+  // Estado para el centro y zoom del mapa
+  const [mapCenter, setMapCenter] = useState([23.6345, -102.5528]); // México
+  const [mapZoom, setMapZoom] = useState(5);
+
   return (
-    <div className="h-[600px] rounded-xl overflow-hidden shadow-md">
-      <MapContainer
-        center={[23.6345, -102.5528]} // centro de México
-        zoom={5}
-        style={{ width: "100%", height: "100%" }}
-      >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        {sucursales.map((clinica, i) => {
-          let lat = clinica.lat;
-          let lng = clinica.lng;
-          if (
-            (lat === undefined || lng === undefined) &&
-            typeof clinica.direccion === "string" &&
-            clinica.direccion.includes(",")
-          ) {
-            const parts = clinica.direccion.split(",");
-            if (
-              parts.length === 2 &&
-              !isNaN(parseFloat(parts[0])) &&
-              !isNaN(parseFloat(parts[1]))
-            ) {
-              lat = parseFloat(parts[0]);
-              lng = parseFloat(parts[1]);
-            }
-          }
-          if (
-            typeof lat !== "number" ||
-            typeof lng !== "number" ||
-            isNaN(lat) ||
-            isNaN(lng)
-          )
-            return null;
-          return (
-            <Marker
-              key={i}
-              position={[lat, lng]}
-              icon={pinIcon}
-              eventHandlers={{
-                click: () => setSelected(clinica),
-              }}
-            >
-              {selected && selected === clinica && (
-                <Popup>
-                  <div>
-                    <div className="relative h-[600px] rounded-xl overflow-hidden shadow-md">
-                      <div className="absolute left-1/2 top-8 z-20 w-full max-w-2xl -translate-x-1/2 bg-white rounded-2xl shadow-2xl border border-gray-200">
-                        <div className="flex items-center justify-center gap-2 px-4 pt-4">
-                          {selected.fotos && selected.fotos.length > 0 && (
-                            <div className="relative w-full flex items-center justify-center">
-                              <button
-                                className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow hover:bg-white z-10"
-                                onClick={() =>
-                                  setCarouselIdx(
-                                    (carouselIdx - 1 + selected.fotos.length) %
-                                      selected.fotos.length
-                                  )
-                                }
-                              >
-                                ❮
-                              </button>
-                              <img
-                                src={selected.fotos[carouselIdx]}
-                                alt={selected.nombre}
-                                className="h-40 w-full object-cover rounded-xl"
-                                style={{ maxWidth: "320px" }}
-                              />
-                              <button
-                                className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow hover:bg-white z-10"
-                                onClick={() =>
-                                  setCarouselIdx(
-                                    (carouselIdx + 1) % selected.fotos.length
-                                  )
-                                }
-                              >
-                                ❯
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                        <div className="px-6 py-4 text-center">
-                          <h2 className="text-2xl font-bold text-[#FE0000] mb-2">
-                            {selected.nombre}
-                          </h2>
-                          <p className="text-gray-700 text-sm mb-1">
-                            {selected.estado} - {selected.municipio}
-                          </p>
-                          <p className="text-gray-700 text-sm mb-1">
-                            {selected.direccion}
-                          </p>
-                          <p className="text-gray-700 text-sm mb-1">
-                            Tel: {selected.telefono}
-                          </p>
-                          <p className="text-gray-700 text-sm mb-1">
-                            Horario: {selected.horario}
-                          </p>
-                          <div className="flex justify-center gap-4 mt-4">
-                            <a
-                              href={selected.maps}
-                              target="_blank"
-                              className="px-4 py-2 rounded-lg bg-[#FE0000] text-white font-semibold shadow hover:bg-red-600 transition"
-                            >
-                              Direcciones
-                            </a>
-                            <button className="px-4 py-2 rounded-lg bg-blue-500 text-white font-semibold shadow hover:bg-blue-600 transition">
-                              Agendar cita
-                            </button>
-                            <button className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-semibold shadow hover:bg-gray-200 transition">
-                              Detalles
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Popup>
+    <div className="flex w-full gap-8">
+      {/* Lista y carta de sucursal seleccionada a la izquierda */}
+      <div className="w-full max-w-xl py-8 px-6">
+        <h2 className="text-2xl font-bold text-[#002B5C] mb-2">Encuentra la clínica dental más cerca de ti</h2>
+        <p className="mb-4 text-gray-600">Elige entre las más de 65 sucursales dentalia que tenemos en todo México.</p>
+        <div className="flex items-center mb-6 gap-2">
+          <input
+            type="text"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Ciudad, colonia, clínica o c.p."
+            className="w-full px-4 py-2 border border-gray-300 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-[#002B5C]"
+          />
+          <button
+            className="bg-[#002B5C] p-2 rounded-full text-white flex items-center justify-center"
+            title="Detectar mi ubicación"
+            disabled={locating}
+            onClick={() => {
+              if (!navigator.geolocation) {
+                alert("La geolocalización no está soportada en este navegador.");
+                return;
+              }
+              setLocating(true);
+              navigator.geolocation.getCurrentPosition(
+                pos => {
+                  const { latitude, longitude } = pos.coords;
+                  // Buscar la sucursal más cercana
+                  let minDist = Infinity;
+                  let nearest = null;
+                  for (const clinica of sucursales) {
+                    let lat = clinica.lat;
+                    let lng = clinica.lng;
+                    if ((lat === undefined || lng === undefined) && typeof clinica.direccion === "string" && clinica.direccion.includes(",")) {
+                      const parts = clinica.direccion.split(",");
+                      if (parts.length === 2 && !isNaN(parseFloat(parts[0])) && !isNaN(parseFloat(parts[1]))) {
+                        lat = parseFloat(parts[0]);
+                        lng = parseFloat(parts[1]);
+                      }
+                    }
+                    if (typeof lat !== "number" || typeof lng !== "number" || isNaN(lat) || isNaN(lng)) continue;
+                    const dist = Math.sqrt(Math.pow(lat - latitude, 2) + Math.pow(lng - longitude, 2));
+                    if (dist < minDist) {
+                      minDist = dist;
+                      nearest = clinica;
+                    }
+                  }
+                  if (nearest) {
+                    setSelected(nearest);
+                  } else {
+                    alert("No se encontró ninguna sucursal cercana.");
+                  }
+                  setLocating(false);
+                },
+                err => {
+                  alert("No se pudo obtener la ubicación: " + err.message);
+                  setLocating(false);
+                }
+              );
+            }}
+          >
+            <svg width="20" height="20" fill="none" stroke="currentColor">
+              <circle cx="10" cy="10" r="8" strokeWidth="2" />
+              <path d="M10 2v2M10 16v2M2 10h2M16 10h2" strokeWidth="2" />
+            </svg>
+          </button>
+        </div>
+        {/* Tarjeta destacada de la sucursal seleccionada, sobre la lista */}
+        {selected && (
+          <div className="mb-6 p-6 rounded-xl border border-blue-500 bg-blue-100 shadow">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-lg font-bold text-[#002B5C]">{selected.nombre}</span>
+              {selected.rating && (
+                <span className="text-sm text-gray-600">★ {selected.rating} ({selected.reviews} reviews)</span>
               )}
-            </Marker>
-          );
-        })}
-        {selected &&
-          selected.lat !== undefined &&
-          selected.lng !== undefined && (
-            <FlyToLocation position={[selected.lat, selected.lng]} />
-          )}
-      </MapContainer>
+            </div>
+            <div className="text-gray-700 mb-1">{selected.direccion}</div>
+            {selected.mapsUrl && (
+              <a href={selected.mapsUrl} target="_blank" rel="noopener noreferrer" className="text-[#002B5C] underline text-sm mb-1 block">Abrir en Google Maps</a>
+            )}
+            {selected.centroComercial && (
+              <a href={selected.centroComercial} target="_blank" rel="noopener noreferrer" className="text-[#002B5C] underline text-sm mb-1 block">Mapa del centro comercial</a>
+            )}
+            {selected.telefono && (
+              <a href={`tel:${selected.telefono}`} className="text-[#002B5C] underline text-sm mb-1 block">{selected.telefono}</a>
+            )}
+            {selected.horario && (
+              <div className="text-sm text-gray-600">{selected.horario}</div>
+            )}
+          </div>
+        )}
+        {/* Lista de sucursales filtrada por búsqueda */}
+        <ul className="space-y-10 max-h-[calc(100vh-300px)] overflow-y-auto pr-2">
+          {(() => {
+            const searchLower = search.trim().toLowerCase();
+            const filtered = sucursales.filter(clinica => {
+              if (!searchLower) return true;
+              return (
+                clinica.nombre?.toLowerCase().includes(searchLower) ||
+                clinica.direccion?.toLowerCase().includes(searchLower) ||
+                clinica.ciudad?.toLowerCase().includes(searchLower) ||
+                clinica.colonia?.toLowerCase().includes(searchLower) ||
+                clinica.cp?.toString().includes(searchLower)
+              );
+            }).filter(clinica => !selected || clinica.nombre !== selected.nombre);
+            const maxList = selected ? 3 : 4;
+            return filtered.slice(0, maxList).map((clinica, i) => (
+              <li
+                key={clinica.nombre}
+                className="cursor-pointer"
+                onClick={() => {
+                  setSelected(clinica);
+                  // Centrar y hacer zoom al pin de la sucursal seleccionada
+                  let lat = clinica.lat;
+                  let lng = clinica.lng;
+                  if ((lat === undefined || lng === undefined) && typeof clinica.direccion === "string" && clinica.direccion.includes(",")) {
+                    const parts = clinica.direccion.split(",");
+                    if (parts.length === 2 && !isNaN(parseFloat(parts[0])) && !isNaN(parseFloat(parts[1]))) {
+                      lat = parseFloat(parts[0]);
+                      lng = parseFloat(parts[1]);
+                    }
+                  }
+                  if (typeof lat === "number" && typeof lng === "number" && !isNaN(lat) && !isNaN(lng)) {
+                    setMapCenter([lat, lng]);
+                    setMapZoom(16);
+                  }
+                }}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-lg font-bold text-[#002B5C]">{clinica.nombre}</span>
+                  {clinica.rating && (
+                    <span className="text-sm text-gray-600">★ {clinica.rating} ({clinica.reviews} reviews)</span>
+                  )}
+                </div>
+                <div className="text-gray-700 mb-1">{clinica.direccion}</div>
+                {clinica.mapsUrl && (
+                  <a href={clinica.mapsUrl} target="_blank" rel="noopener noreferrer" className="text-[#002B5C] underline text-sm mb-1 block">Abrir en Google Maps</a>
+                )}
+                {clinica.centroComercial && (
+                  <a href={clinica.centroComercial} target="_blank" rel="noopener noreferrer" className="text-[#002B5C] underline text-sm mb-1 block">Mapa del centro comercial</a>
+                )}
+                {clinica.telefono && (
+                  <a href={`tel:${clinica.telefono}`} className="text-[#002B5C] underline text-sm mb-1 block">{clinica.telefono}</a>
+                )}
+                {clinica.horario && (
+                  <div className="text-sm text-gray-600">{clinica.horario}</div>
+                )}
+              </li>
+            ));
+          })()}
+        </ul>
+      </div>
+      {/* Mapa a la derecha, más grande y centrado verticalmente */}
+      <div className="flex-1 flex items-center justify-center py-8 relative">
+        {/* Botón flotante para volver al mapa principal */}
+        {selected && (
+          <button
+            style={{position: 'absolute', top: 60, left: 600, zIndex: 1000}}
+            className="px-4 py-2 bg-[#002B5C] text-white rounded-full shadow hover:bg-blue-700"
+            onClick={() => {
+              setSelected(null);
+              setMapCenter([23.6345, -102.5528]);
+              setMapZoom(5);
+            }}
+          >Volver al mapa principal</button>
+        )}
+        <div className="w-[700px] h-[700px] rounded-xl overflow-hidden shadow-md self-start">
+          <MapContainer
+            center={mapCenter}
+            zoom={mapZoom}
+            style={{ width: "100%", height: "100%" }}
+          >
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution="&copy; OpenStreetMap contributors"
+            />
+            {/* Si hay sucursal seleccionada, vuela al pin y hace zoom */}
+            {/* Si hay sucursal seleccionada, vuela al pin y hace zoom. Si no, muestra el mapa general. */}
+            {selected
+              ? (() => {
+                  let lat = selected.lat;
+                  let lng = selected.lng;
+                  if ((lat === undefined || lng === undefined) && typeof selected.direccion === "string" && selected.direccion.includes(",")) {
+                    const parts = selected.direccion.split(",");
+                    if (parts.length === 2 && !isNaN(parseFloat(parts[0])) && !isNaN(parseFloat(parts[1]))) {
+                      lat = parseFloat(parts[0]);
+                      lng = parseFloat(parts[1]);
+                    }
+                  }
+                  if (typeof lat === "number" && typeof lng === "number" && !isNaN(lat) && !isNaN(lng)) {
+                    return <FlyToLocation position={[lat, lng]} zoom={16} />;
+                  }
+                  return null;
+                })()
+              : <FlyToLocation position={[23.6345, -102.5528]} zoom={5} />}
+            {sucursales.map((clinica, i) => {
+              let lat = clinica.lat;
+              let lng = clinica.lng;
+              if ((lat === undefined || lng === undefined) && typeof clinica.direccion === "string" && clinica.direccion.includes(",")) {
+                const parts = clinica.direccion.split(",");
+                if (parts.length === 2 && !isNaN(parseFloat(parts[0])) && !isNaN(parseFloat(parts[1]))) {
+                  lat = parseFloat(parts[0]);
+                  lng = parseFloat(parts[1]);
+                }
+              }
+              if (typeof lat !== "number" || typeof lng !== "number" || isNaN(lat) || isNaN(lng)) {
+                return null;
+              }
+              return (
+                <Marker
+                  key={i}
+                  position={[lat, lng]}
+                  icon={pinIcon}
+                  eventHandlers={{
+                    click: () => {
+                      setSelected(clinica);
+                      setMapCenter([lat, lng]);
+                      setMapZoom(16);
+                    }
+                  }}
+                >
+                  <Popup>{clinica.nombre}</Popup>
+                </Marker>
+              );
+            })}
+          </MapContainer>
+        </div>
+      </div>
     </div>
   );
 }

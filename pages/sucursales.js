@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
 
 import PromoBanner from "../components/PromoBanner";
 import dynamic from "next/dynamic";
@@ -34,11 +32,10 @@ const SucursalesPage = () => {
     <div>
       <PromoBanner />
       <Header />
-
-      <main className="bg-gray-50 text-gray-800 py-10">
-        <div className="container mx-auto px-6">
+      <main className="bg-gray-50 text-gray-800">
+        <div className="container mx-auto px-0">
           {/* Header Section */}
-          <section className="text-center mb-10">
+          <section className="text-center mb-10 md:hidden">
             <h1 className="text-4xl font-bold text-red-500">
               Encuentra la sucursal dental más cerca de ti
             </h1>
@@ -55,11 +52,9 @@ const SucursalesPage = () => {
               />
             </div>
           </section>
-
-          {/* Grid: Info + Mapa */}
-          <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Panel de sucursal seleccionada */}
-            <div className="bg-white p-6 rounded-xl shadow-md flex flex-col">
+          {/* Lista y panel solo en móvil, mapa en ambas vistas */}
+          <section className="grid grid-cols-1 md:grid-cols-1 gap-6">
+            <div className="md:hidden bg-white p-6 rounded-xl shadow-md flex flex-col mb-6">
               {!selected ? (
                 <p className="text-gray-500">
                   Selecciona una sucursal en la lista o en el mapa
@@ -84,7 +79,6 @@ const SucursalesPage = () => {
                   <p className="text-sm text-gray-600">
                     Horario: {selected.horario}
                   </p>
-
                   <div className="mt-4 flex space-x-3">
                     <a
                       href={`https://www.google.com/maps?q=${selected.lat},${selected.lng}`}
@@ -106,8 +100,6 @@ const SucursalesPage = () => {
                   </div>
                 </div>
               )}
-
-              {/* Lista filtrada de sucursales */}
               <ul className="mt-6 space-y-3">
                 {filteredClinicas.map((clinica, idx) => (
                   <li
@@ -129,13 +121,10 @@ const SucursalesPage = () => {
                 ))}
               </ul>
             </div>
-
-            {/* Mapa interactivo */}
             <DynamicMap sucursales={sucursales} selected={selected} setSelected={setSelected} />
           </section>
         </div>
       </main>
-
       <Footer />
     </div>
   );
