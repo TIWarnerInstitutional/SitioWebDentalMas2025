@@ -162,7 +162,7 @@ export default function MapaSucursales({
             }}
           >Volver al mapa principal</button>
         )}
-        <div className="w-[700px] h-[700px] rounded-xl overflow-hidden shadow-md self-start">
+    <div className="w-[700px] h-[700px] rounded-xl overflow-hidden shadow-md self-start relative z-0">
           <MapContainer
             center={mapCenter}
             zoom={mapZoom}
