@@ -15,11 +15,24 @@ function FlyToLocation({ position, zoom = 16 }) {
   return null;
 }
 
-export default function MapaSucursales() {
-  const [selected, setSelected] = useState(null);
+export default function MapaSucursales({
+  hideList = false,
+  selected: selectedProp,
+  setSelected: setSelectedProp,
+  sucursales: sucursalesProp,
+  search: searchProp,
+  setSearch: setSearchProp,
+  ...props
+}) {
+  const [selectedState, setSelectedState] = useState(null);
   const [carouselIdx, setCarouselIdx] = useState(0);
-  const [search, setSearch] = useState("");
+  const [searchState, setSearchState] = useState("");
   const [locating, setLocating] = useState(false);
+  const selected = selectedProp !== undefined ? selectedProp : selectedState;
+  const setSelected = setSelectedProp !== undefined ? setSelectedProp : setSelectedState;
+  const sucursales = sucursalesProp !== undefined ? sucursalesProp : require("../utils/sucursales").default;
+  const search = searchProp !== undefined ? searchProp : searchState;
+  const setSearch = setSearchProp !== undefined ? setSearchProp : setSearchState;
   const pinIcon = L.icon({
     iconUrl: "/PinMapa.png",
     iconSize: [28, 28],
@@ -32,36 +45,65 @@ export default function MapaSucursales() {
   const [mapZoom, setMapZoom] = useState(5);
 
   return (
-    <div className="flex w-full gap-8">
+    <div className={`flex w-full gap-8 ${hideList ? '' : ''}`}>
       {/* Lista y carta de sucursal seleccionada a la izquierda */}
-      <div className="w-full max-w-xl py-8 px-6">
-        <h2 className="text-2xl font-bold text-[#002B5C] mb-2">Encuentra la clínica dental más cerca de ti</h2>
-        <p className="mb-4 text-gray-600">Elige entre las más de 65 sucursales dentalia que tenemos en todo México.</p>
-        <div className="flex items-center mb-6 gap-2">
-          <input
-            type="text"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Ciudad, colonia, clínica o c.p."
-            className="w-full px-4 py-2 border border-gray-300 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-[#002B5C]"
-          />
-          <button
-            className="bg-[#002B5C] p-2 rounded-full text-white flex items-center justify-center"
-            title="Detectar mi ubicación"
-            disabled={locating}
-            onClick={() => {
-              if (!navigator.geolocation) {
-                alert("La geolocalización no está soportada en este navegador.");
-                return;
-              }
-              setLocating(true);
-              navigator.geolocation.getCurrentPosition(
-                pos => {
-                  const { latitude, longitude } = pos.coords;
-                  // Buscar la sucursal más cercana
-                  let minDist = Infinity;
-                  let nearest = null;
-                  for (const clinica of sucursales) {
+      {!hideList && (
+        <div className="w-full max-w-xl py-8 px-6">
+          <h2 className="text-2xl font-bold text-[#002B5C] mb-2">Encuentra la clínica dental más cerca de ti</h2>
+          <p className="mb-4 text-gray-600">Elige entre las más de 65 sucursales dentalia que tenemos en todo México.</p>
+          <div className="flex items-center mb-6 gap-2">
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Ciudad, colonia, clínica o c.p."
+              className="w-full px-4 py-2 border border-gray-300 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-[#002B5C]"
+            />
+          </div>
+          {/* Tarjeta destacada de la sucursal seleccionada, sobre la lista */}
+          {selected && (
+            <div className="mb-6 p-6 rounded-xl border border-blue-500 bg-blue-100 shadow">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-lg font-bold text-[#002B5C]">{selected.nombre}</span>
+                {selected.rating && (
+                  <span className="text-sm text-gray-600">★ {selected.rating} ({selected.reviews} reviews)</span>
+                )}
+              </div>
+              <div className="text-gray-700 mb-1">{selected.direccion}</div>
+              {selected.mapsUrl && (
+                <a href={selected.mapsUrl} target="_blank" rel="noopener noreferrer" className="text-[#002B5C] underline text-sm mb-1 block">Abrir en Google Maps</a>
+              )}
+              {selected.centroComercial && (
+                <a href={selected.centroComercial} target="_blank" rel="noopener noreferrer" className="text-[#002B5C] underline text-sm mb-1 block">Mapa del centro comercial</a>
+              )}
+              {selected.telefono && (
+                <a href={`tel:${selected.telefono}`} className="text-[#002B5C] underline text-sm mb-1 block">{selected.telefono}</a>
+              )}
+              {selected.horario && (
+                <div className="text-sm text-gray-600">{selected.horario}</div>
+              )}
+            </div>
+          )}
+          {/* Lista de sucursales filtrada por búsqueda */}
+          <ul className="space-y-10 max-h-[calc(100vh-300px)] overflow-y-auto pr-2">
+            {(() => {
+              const searchLower = search.trim().toLowerCase();
+              const filtered = sucursales.filter(clinica => {
+                if (!searchLower) return true;
+                return (
+                  clinica.nombre?.toLowerCase().includes(searchLower) ||
+                  clinica.direccion?.toLowerCase().includes(searchLower) ||
+                  clinica.ciudad?.toLowerCase().includes(searchLower) ||
+                  clinica.colonia?.toLowerCase().includes(searchLower) ||
+                  clinica.cp?.toString().includes(searchLower)
+                );
+              }).filter(clinica => !selected || clinica.nombre !== selected.nombre);
+              const maxList = selected ? 3 : 4;
+              return filtered.slice(0, maxList).map((clinica, i) => (
+                <li
+                  key={clinica.nombre}
+                  className={`cursor-pointer ${typeof clinica.lat !== "number" || typeof clinica.lng !== "number" || isNaN(clinica.lat) || isNaN(clinica.lng) ? "opacity-50 pointer-events-none" : ""}`}
+                  onClick={() => {
                     let lat = clinica.lat;
                     let lng = clinica.lng;
                     if ((lat === undefined || lng === undefined) && typeof clinica.direccion === "string" && clinica.direccion.includes(",")) {
@@ -71,118 +113,41 @@ export default function MapaSucursales() {
                         lng = parseFloat(parts[1]);
                       }
                     }
-                    if (typeof lat !== "number" || typeof lng !== "number" || isNaN(lat) || isNaN(lng)) continue;
-                    const dist = Math.sqrt(Math.pow(lat - latitude, 2) + Math.pow(lng - longitude, 2));
-                    if (dist < minDist) {
-                      minDist = dist;
-                      nearest = clinica;
+                    if (typeof lat === "number" && typeof lng === "number" && !isNaN(lat) && !isNaN(lng)) {
+                      setSelected(clinica);
+                      setMapCenter([lat, lng]);
+                      setMapZoom(16);
                     }
-                  }
-                  if (nearest) {
-                    setSelected(nearest);
-                  } else {
-                    alert("No se encontró ninguna sucursal cercana.");
-                  }
-                  setLocating(false);
-                },
-                err => {
-                  alert("No se pudo obtener la ubicación: " + err.message);
-                  setLocating(false);
-                }
-              );
-            }}
-          >
-            <svg width="20" height="20" fill="none" stroke="currentColor">
-              <circle cx="10" cy="10" r="8" strokeWidth="2" />
-              <path d="M10 2v2M10 16v2M2 10h2M16 10h2" strokeWidth="2" />
-            </svg>
-          </button>
-        </div>
-        {/* Tarjeta destacada de la sucursal seleccionada, sobre la lista */}
-        {selected && (
-          <div className="mb-6 p-6 rounded-xl border border-blue-500 bg-blue-100 shadow">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-lg font-bold text-[#002B5C]">{selected.nombre}</span>
-              {selected.rating && (
-                <span className="text-sm text-gray-600">★ {selected.rating} ({selected.reviews} reviews)</span>
-              )}
-            </div>
-            <div className="text-gray-700 mb-1">{selected.direccion}</div>
-            {selected.mapsUrl && (
-              <a href={selected.mapsUrl} target="_blank" rel="noopener noreferrer" className="text-[#002B5C] underline text-sm mb-1 block">Abrir en Google Maps</a>
-            )}
-            {selected.centroComercial && (
-              <a href={selected.centroComercial} target="_blank" rel="noopener noreferrer" className="text-[#002B5C] underline text-sm mb-1 block">Mapa del centro comercial</a>
-            )}
-            {selected.telefono && (
-              <a href={`tel:${selected.telefono}`} className="text-[#002B5C] underline text-sm mb-1 block">{selected.telefono}</a>
-            )}
-            {selected.horario && (
-              <div className="text-sm text-gray-600">{selected.horario}</div>
-            )}
-          </div>
-        )}
-        {/* Lista de sucursales filtrada por búsqueda */}
-        <ul className="space-y-10 max-h-[calc(100vh-300px)] overflow-y-auto pr-2">
-          {(() => {
-            const searchLower = search.trim().toLowerCase();
-            const filtered = sucursales.filter(clinica => {
-              if (!searchLower) return true;
-              return (
-                clinica.nombre?.toLowerCase().includes(searchLower) ||
-                clinica.direccion?.toLowerCase().includes(searchLower) ||
-                clinica.ciudad?.toLowerCase().includes(searchLower) ||
-                clinica.colonia?.toLowerCase().includes(searchLower) ||
-                clinica.cp?.toString().includes(searchLower)
-              );
-            }).filter(clinica => !selected || clinica.nombre !== selected.nombre);
-            const maxList = selected ? 3 : 4;
-            return filtered.slice(0, maxList).map((clinica, i) => (
-              <li
-                key={clinica.nombre}
-                className="cursor-pointer"
-                onClick={() => {
-                  setSelected(clinica);
-                  // Centrar y hacer zoom al pin de la sucursal seleccionada
-                  let lat = clinica.lat;
-                  let lng = clinica.lng;
-                  if ((lat === undefined || lng === undefined) && typeof clinica.direccion === "string" && clinica.direccion.includes(",")) {
-                    const parts = clinica.direccion.split(",");
-                    if (parts.length === 2 && !isNaN(parseFloat(parts[0])) && !isNaN(parseFloat(parts[1]))) {
-                      lat = parseFloat(parts[0]);
-                      lng = parseFloat(parts[1]);
-                    }
-                  }
-                  if (typeof lat === "number" && typeof lng === "number" && !isNaN(lat) && !isNaN(lng)) {
-                    setMapCenter([lat, lng]);
-                    setMapZoom(16);
-                  }
-                }}
-              >
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-lg font-bold text-[#002B5C]">{clinica.nombre}</span>
-                  {clinica.rating && (
-                    <span className="text-sm text-gray-600">★ {clinica.rating} ({clinica.reviews} reviews)</span>
+                  }}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-lg font-bold text-[#002B5C]">{clinica.nombre}</span>
+                    {clinica.rating && (
+                      <span className="text-sm text-gray-600">★ {clinica.rating} ({clinica.reviews} reviews)</span>
+                    )}
+                  </div>
+                  <div className="text-gray-700 mb-1">{clinica.direccion}</div>
+                  {typeof clinica.lat !== "number" || typeof clinica.lng !== "number" || isNaN(clinica.lat) || isNaN(clinica.lng) ? (
+                    <div className="text-xs text-red-500">Ubicación no disponible</div>
+                  ) : null}
+                  {clinica.mapsUrl && (
+                    <a href={clinica.mapsUrl} target="_blank" rel="noopener noreferrer" className="text-[#002B5C] underline text-sm mb-1 block">Abrir en Google Maps</a>
                   )}
-                </div>
-                <div className="text-gray-700 mb-1">{clinica.direccion}</div>
-                {clinica.mapsUrl && (
-                  <a href={clinica.mapsUrl} target="_blank" rel="noopener noreferrer" className="text-[#002B5C] underline text-sm mb-1 block">Abrir en Google Maps</a>
-                )}
-                {clinica.centroComercial && (
-                  <a href={clinica.centroComercial} target="_blank" rel="noopener noreferrer" className="text-[#002B5C] underline text-sm mb-1 block">Mapa del centro comercial</a>
-                )}
-                {clinica.telefono && (
-                  <a href={`tel:${clinica.telefono}`} className="text-[#002B5C] underline text-sm mb-1 block">{clinica.telefono}</a>
-                )}
-                {clinica.horario && (
-                  <div className="text-sm text-gray-600">{clinica.horario}</div>
-                )}
-              </li>
-            ));
-          })()}
-        </ul>
-      </div>
+                  {clinica.centroComercial && (
+                    <a href={clinica.centroComercial} target="_blank" rel="noopener noreferrer" className="text-[#002B5C] underline text-sm mb-1 block">Mapa del centro comercial</a>
+                  )}
+                  {clinica.telefono && (
+                    <a href={`tel:${clinica.telefono}`} className="text-[#002B5C] underline text-sm mb-1 block">{clinica.telefono}</a>
+                  )}
+                  {clinica.horario && (
+                    <div className="text-sm text-gray-600">{clinica.horario}</div>
+                  )}
+                </li>
+              ));
+            })()}
+          </ul>
+        </div>
+      )}
       {/* Mapa a la derecha, más grande y centrado verticalmente */}
       <div className="flex-1 flex items-center justify-center py-8 relative">
         {/* Botón flotante para volver al mapa principal */}

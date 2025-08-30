@@ -1,6 +1,7 @@
-import ChatbotWidget from '../components/ChatbotWidget';
+// ChatbotWidget eliminado, se usará HubSpot
 import Footer from '../components/Footer';
 import Link from 'next/link';
+import SucursalesHero from '../components/SucursalesHero';
 
 import PromoBanner from '../components/PromoBanner';
 import CarouselBanner from '../components/CarouselBanner';
@@ -9,6 +10,7 @@ import Header from '../components/Header';
 import Head from 'next/head';
 import React from 'react';
 import FAQ from '../components/FAQ';
+import BlogCategorySection from '../components/BlogCategorySection';
 export default function Home() {
   const features = [
     {
@@ -37,7 +39,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>DentalMas | Tu salud bucal es nuestra prioridad</title>
+        <title>DentalMas</title>
       </Head>
       <PromoBanner />
       <Header />
@@ -53,28 +55,38 @@ export default function Home() {
              
           
               {/* Sección Sucursales */}
-              <section className="w-full py-20 bg-white flex flex-col items-center animate-fade-in">
-                <div className="max-w-4xl w-full flex flex-col items-center text-center">
-                  <h2 className="text-4xl font-bold mb-4 text-[#FE0000] animate-slide-up">Sucursales</h2>
-                  <p className="text-lg text-gray-700 mb-6 animate-fade-in">Contamos con sucursales en CDMX, Estado de México y Querétaro. Encuentra la más cercana y agenda tu cita.</p>
-                  <Link href="/Sucursales" className="mt-4 px-8 py-3 rounded-xl bg-[#FE0000] text-white font-semibold hover:bg-red-700 transition animate-pop">Ver sucursales</Link>
-                </div>
+              <section className="w-full py-20 bg-[#F7FAFC]">
+                <SucursalesHero />
               </section>
               {/* Sección Blog */}
-              <section className="w-full py-20 bg-gradient-to-br from-white via-gray-50 to-gray-100 flex flex-col items-center animate-fade-in">
-                <div className="max-w-4xl w-full flex flex-col items-center text-center">
-                  <h2 className="text-4xl font-bold mb-4 text-[#FE0000] animate-slide-up">Blog</h2>
-                  <FAQ />
-                  <Link href="/Blog" className="mt-4 px-8 py-3 rounded-xl bg-[#FE0000] text-white font-semibold hover:bg-red-700 transition animate-pop">Ir al blog</Link>
-                </div>
-              </section>
+              <BlogCategorySection />
               {/* Sección Casos de Éxito */}
-              <section className="w-full py-20 bg-white flex flex-col items-center animate-fade-in">
-                <div className="max-w-4xl w-full flex flex-col items-center text-center">
-                  <h2 className="text-4xl font-bold mb-4 text-[#FE0000] animate-slide-up">Casos de Éxito</h2>
-                  <p className="text-lg text-gray-700 mb-6 animate-fade-in">Conoce historias reales de pacientes que transformaron su sonrisa con nosotros.</p>
-                  <Link href="/CasosDeExito" className="mt-4 px-8 py-3 rounded-xl bg-[#FE0000] text-white font-semibold hover:bg-red-700 transition animate-pop">Ver casos</Link>
+              <section className="w-full py-20 bg-[#F7FAFC] flex flex-col items-center">
+                <div className="max-w-5xl w-full flex flex-col items-center text-center mb-10">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[#002B5C]">Lo que dicen nuestros pacientes</h2>
+                  <p className="text-lg text-gray-700 mb-8">La sonrisa de nuestros pacientes es nuestra mayor recomendación. Descubre sus experiencias:</p>
                 </div>
+                <div className="flex flex-col md:flex-row justify-center items-center md:gap-6 gap-8 mb-8">
+                  {/* Testimonio 1 */}
+                  <div className="bg-white rounded-3xl shadow-lg flex-1 max-w-xs min-h-[420px] px-8 py-12 flex flex-col items-center text-center mx-auto">
+                    <img src="/FondoPrincipal.jpg" alt="Paciente 1" className="w-28 h-28 rounded-full object-cover mb-6 border-4 border-[#E5E7EB]" />
+                    <p className="text-xl text-[#002B5C] font-medium mb-6 leading-normal">“¡Mi vida cambió! Ahora sonrío sin pena al gracias al equipo. Son muy profesionales y atentos.”</p>
+                    <span className="text-gray-500 text-base mt-auto">— Ana G, Paciente de Ortodoncia</span>
+                  </div>
+                  {/* Testimonio 2 */}
+                  <div className="bg-white rounded-3xl shadow-lg flex-1 max-w-xs min-h-[420px] px-8 py-12 flex flex-col items-center text-center mx-auto">
+                    <img src="/FondoPrincipal.jpg" alt="Paciente 2" className="w-28 h-28 rounded-full object-cover mb-6 border-4 border-[#E5E7EB]" />
+                    <p className="text-xl text-[#002B5C] font-medium mb-6 leading-normal">Indoloros y rápidos. Siempre me explican cada paso y el resultado fue perfecto. ¡Recomendadísimos!</p>
+                    <span className="text-gray-500 text-base mt-auto">— Javier R, Paciente de Implantes</span>
+                  </div>
+                  {/* Testimonio 3 */}
+                  <div className="bg-white rounded-3xl shadow-lg flex-1 max-w-xs min-h-[420px] px-8 py-12 flex flex-col items-center text-center mx-auto">
+                    <img src="/FondoPrincipal.jpg" alt="Paciente 3" className="w-28 h-28 rounded-full object-cover mb-6 border-4 border-[#E5E7EB]" />
+                    <p className="text-xl text-[#002B5C] font-medium mb-6 leading-normal">Confianza total. Mejor atención, tecnología de punta y un personal muy humano.</p>
+                    <span className="text-gray-500 text-base mt-auto">— Carmen L, Paciente Habitual</span>
+                  </div>
+                </div>
+                <button className="mt-2 px-8 py-3 rounded-xl bg-[#3B82F6] text-white font-semibold hover:bg-blue-700 transition shadow">VER MÁS HISTORIAS</button>
               </section>
               {/* Sección Pagos */}
               <section id="pagos" className="py-20 bg-white border-b">
@@ -109,7 +121,17 @@ export default function Home() {
               </section>
             </main>
             <Footer />
-            <ChatbotWidget />
+            {/* Start of HubSpot Embed Code */}
+            <script
+              type="text/javascript"
+              id="hs-script-loader"
+              async
+              defer
+              src="//js-na1.hs-scripts.com/50291038.js"
+            ></script>
+            {/* End of HubSpot Embed Code */}
           </>
   );
 }
+
+
